@@ -18,3 +18,8 @@ async def forecast_humidity_service(year:int, month:int, day:int, hour:int, lat:
     input_data = np.array([[year, month, day, hour, temperature, windspeed, precipitation,lat, long]])
     forecasted_humidity = humidity_model.predict(input_data)
     return forecasted_humidity
+
+async def forecast_precipitation_service(year:int, month:int, day:int, hour:int, lat:float, long:float, temperature:float, windspeed:float, humidity:float):
+    input_data = np.array([[year, month, day, hour, temperature, windspeed, humidity,lat, long]])
+    forecasted_precipitation = precipitation_model.predict(input_data)
+    return forecasted_precipitation

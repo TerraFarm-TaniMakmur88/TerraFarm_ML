@@ -1,5 +1,5 @@
 from fastapi import FastAPI, HTTPException
-from service.forecast import forecast_temperature_service, forecast_windspeed_service, forecast_humidity_service
+from service.forecast import forecast_temperature_service, forecast_windspeed_service, forecast_humidity_service, forecast_precipitation_service
 # from model.schemas import TemperatureForecastInputModel
 
 app = FastAPI()
@@ -29,5 +29,13 @@ async def forecast_humidity(year:int, month:int, day:int, hour:int, lat:float, l
     try:
         humidity_forecasted = await forecast_humidity_service(year, month, day, hour, lat, long, temperature, windspeed, precipitation)
         return {"status": "OK", "data": float(humidity_forecasted[0])}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    
+@app.get("/forecast/precipitation")
+async def forecast_precipitation(year:int, month:int, day:int, hour:int, lat:float, long:float, temperature:float, windspeed:float, humidity:float):
+    try:
+        precipitation_forecasted = await forecast_precipitation_service(year, month, day, hour, lat, long, temperature, windspeed, humidity)
+        return {"status": "OK", "data": float(precipitation_forecasted[0])}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
