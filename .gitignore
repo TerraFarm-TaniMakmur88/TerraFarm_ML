@@ -19,3 +19,5 @@ __pycache__/
 #Ignore raw and year data
 data/raw/
 data/year/
+data/final/
+data/daily

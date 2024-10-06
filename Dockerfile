@@ -1,6 +1,5 @@
-
 # Gunakan image Python
-FROM python:3.10-slim
+FROM python:3.11.5
 
 # Set workdir
 WORKDIR /app
@@ -9,13 +8,13 @@ WORKDIR /app
 COPY requirements.txt .
 
 # Install dependencies
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy semua file ke container
 COPY . .
 
-# Expose port yang akan digunakan Django
-EXPOSE 8030
+# Expose port yang akan digunakan FastAPI
+EXPOSE 8080
 
-# Jalankan perintah untuk menjalankan server Django
-CMD ["uvicorn", "main:app", "--reload", "--port=8030", "--host=0.0.0.0"]
+# Jalankan perintah untuk menjalankan server FastAPI
+CMD ["uvicorn", "main:app", "--reload", "--port=8080", "--host=0.0.0.0"]
